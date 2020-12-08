@@ -1,6 +1,7 @@
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
 const PlayingStatus = require('../PlayingStatus.js');
+const fs = require('fs');
 
 
 module.exports = {
@@ -22,14 +23,24 @@ module.exports = {
       );
     }
 
+    /*
     // get song info for requested song url from youtube
     let songInfo = await getYouTube(message, args);
     if (!songInfo) { return };
+
 
     const song = {
       title: songInfo.videoDetails.title,
       url: songInfo.videoDetails.video_url
     };
+    */
+
+    // local song
+    const path = String.raw`${args.join(' ')}`.replace(/\\/g, '/') // makes windows slashes not be escape characters
+    const song = {
+      title: path, //TODO get title from file tags
+      url: path
+    }
 
 
     // get this server's queue out of the client's queues map
@@ -60,7 +71,6 @@ module.exports = {
           message,
           message.client.queues.get(message.guild.id),
           queueContruct.songs[0],
-          songInfo
         );
       } catch (err) {
         // Printing the error message if the bot fails to join the voicechat
@@ -118,25 +128,21 @@ async function getYouTube(message, args) {
 }
 
 
-function play(message, serverQueue, song, songInfo) {
+function play(message, serverQueue, song) {
   // queue is empty, go back to non-music state
   if (!song) {
     // serverQueue.voiceChannel.leave();
     message.client.queues.delete(message.guild.id);
     // either go back to idle bard messages or show song info from other server
-    PlayingStatus.songMessage(message.client); 
+    PlayingStatus.songMessage(message.client);
     return;
   }
   // console.log(song);
 
-  // ytdl.downloadFromInfo(songInfo, { filter: 'audioonly' });
   // create a stream and pass it the URL of our song.
   // We also add two listeners that handle the end and error event.
   const dispatcher = serverQueue.connection
-    .play(ytdl(song.url, {
-      highWaterMark: 1 << 23, //8 MB buffer
-      filter: 'audioonly'
-    }))
+    .play(song.url)
     .on("finish", () => {
       serverQueue.songs.shift(); // next in queue
       play(message, serverQueue, serverQueue.songs[0]); // recursive call to play again
