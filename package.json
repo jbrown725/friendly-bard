@@ -1,0 +1,24 @@
+{
+  "name": "friendly-bard",
+  "version": "1.0.0",
+  "description": "Music player bot",
+  "main": "src/bot.js",
+  "author": "Jordan Brown",
+  "scripts": {
+    "start": "node /src/bot.js"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.io": "^2.5.3",
+    "discord.js": "^12.3.1",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "jquery": "^3.5.1",
+    "jsdom": "^16.4.0",
+    "npm": "^6.14.8",
+    "winston": "^3.3.3",
+    "youtube-dl": "^3.0.2",
+    "ytdl-core": "^4.0.2",
+    "ytpl": "^0.3.0"
+  }
+}

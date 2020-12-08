@@ -1,0 +1,32 @@
+{
+  "battle1": {
+    "description": "Normal enemy battle",
+    "music": [
+      {
+        "name":"FF7 battle",
+        "title":"Final Fantasy 7 x Final Fantasy 7 Remake - Those Who Fight (Together)",
+        "url":"https://www.youtube.com/watch?v=xEdv344hlNQ"
+      }
+    ]
+  },
+  "battle2": {
+    "description": "Strong enemy battle",
+    "music": [
+      {
+        "name":"Wind Waker mini boss",
+        "title":"Middle Boss Battle The Legend of Zelda The Wind Waker Music Extended",
+        "url":"https://www.youtube.com/watch?v=PwnDmbF49HE"
+      }
+    ]
+  },
+  "battle3": {
+    "description": "Boss battle",
+    "music": [
+      {
+        "name":"Wind Waker mini boss",
+        "title":"Middle Boss Battle The Legend of Zelda The Wind Waker Music Extended",
+        "url":"https://www.youtube.com/watch?v=PwnDmbF49HE"
+      }
+    ]
+  }
+}
