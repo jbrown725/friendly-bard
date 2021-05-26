@@ -1,9 +1,9 @@
-// code borrowed from https://gabrieltanner.org/blog/dicord-music-bot
+// some code snippets taken from https://gabrieltanner.org/blog/dicord-music-bot
 const ytdl = require('ytdl-core');
 const fs = require('fs');
 const path = require("path");
 const Discord = require('discord.js');
-const { prefix, token, youtube,} = require('./config.json');
+const { prefix, token,} = require('./config.json');
 const PlayingStatus = require('./PlayingStatus.js');
 
 
@@ -18,10 +18,20 @@ const client = new Discord.Client();
 // const setPlaying = setPlaying(client);
 const commandDir = path.join(__dirname, "commands");
 const commandFiles = fs.readdirSync(commandDir).filter(file => file.endsWith('.js'));
+const testDir = path.join(commandDir, "tests");
+const testFiles = fs.readdirSync(testDir).filter(file => file.endsWith('.js'));
 
 client.commands = new Discord.Collection();
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
+
+	// set a new item in the Collection
+	// with the key as the command name and the value as the exported module
+	client.commands.set(command.name, command);
+}
+
+for (const file of testFiles) {
+	const command = require(`./commands/tests/${file}`);
 
 	// set a new item in the Collection
 	// with the key as the command name and the value as the exported module
